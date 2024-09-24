@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "829805716874",
+    "project_id": "the-honors-program-c0a53",
+    "storage_bucket": "the-honors-program-c0a53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829805716874:android:ebaf617a7f73b672e51473",
+        "android_client_info": {
+          "package_name": "com.example.the_honors_program"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcK85j64x2xMwgALdZAl6RexbQf_1vhdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829805716874:android:d1e040c1217c1befe51473",
+        "android_client_info": {
+          "package_name": "com.the_honors_program.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcK85j64x2xMwgALdZAl6RexbQf_1vhdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
