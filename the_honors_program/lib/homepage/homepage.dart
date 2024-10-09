@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Colors.pink, Icons.work, 'Honors Project Resources'),
                       _buildGridItem(Colors.brown[300]!, Icons.check_box,
                           'Advisor Guidelines'),
-                      _buildGridItem(Colors.amber, Icons.chat, 'Student Q&A'),
+                      _buildGridItem(Colors.amber, Icons.chat, 'Student FAQ'),
                       _buildGridItem(
                           Colors.deepOrange, Icons.history, 'Past Projects'),
                     ],
@@ -97,7 +97,18 @@ class _MyHomePageState extends State<MyHomePage> {
         if (text == 'What is the Honors Project?') {
           Navigator.pushNamed(context, '/project_overview');
         }
-        // Handle other button taps here
+        if (text == 'Student FAQ') {
+          Navigator.pushNamed(context, '/student_faq');
+        }
+        if (text == "Advisor Guidelines") {
+          Navigator.pushNamed(context, '/adv_guidelines');
+        }
+        if (text == "Honors Project Resources") {
+          Navigator.pushNamed(context, '/projectResources');
+        }
+        if (text == "Past Projects") {
+          Navigator.pushNamed(context, "/pastProjects");
+        }
       },
       child: Container(
         decoration: BoxDecoration(

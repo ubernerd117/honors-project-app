@@ -31,24 +31,51 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.account_circle),
-            title: const Text('Profile'),
+            title: const Text('My Timeline'),
             onTap: () {
               // Navigate to Profile Page
             },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
+            title: const Text('What is the Honors Project?'),
             onTap: () {
-              // Navigate to Settings Page
+              // Navigate to Project Intro page
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Honors Project Resouces'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/projectResources');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Advisor Guidelines'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/adv_guidelines');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Students FAQ'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/student_faq');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Past Projects'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/pastProjects');
             },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushReplacementNamed(context, '/login');
+            title: const Text('Profile'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/profile');
             },
           ),
         ],

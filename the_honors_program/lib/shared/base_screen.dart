@@ -24,7 +24,7 @@ class BaseScreen extends StatelessWidget {
           },
         ),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: bodyContent, // Pass the content of the screen here
     );
   }
