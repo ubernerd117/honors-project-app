@@ -5,7 +5,7 @@ import '../widgets/app_drawer.dart'; // Import the AppDrawer
 class BaseScreen extends StatelessWidget {
   final Widget bodyContent;
 
-  const BaseScreen({required this.bodyContent});
+  const BaseScreen({super.key, required this.bodyContent});
 
   @override
   Widget build(BuildContext context) {

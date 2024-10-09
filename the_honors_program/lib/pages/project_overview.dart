@@ -24,8 +24,8 @@ class ProjectOverviewPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Honors Project Overview',
                     style: TextStyle(
                       fontSize: 24,
@@ -33,8 +33,8 @@ class ProjectOverviewPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 8),
+                  const Text(
                     'Start here to feel confident in the Honors Project from start to finish!',
                     style: TextStyle(
                       fontSize: 16,
