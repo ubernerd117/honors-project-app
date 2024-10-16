@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../shared/strings.dart';
 
 class StudentFaq extends StatefulWidget {
-  const StudentFaq({Key? key}) : super(key: key);
+  const StudentFaq({super.key});
 
   @override
   _StudentFaqState createState() => _StudentFaqState();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../shared/strings.dart';
 
 class ProjectResources extends StatefulWidget {
-  const ProjectResources({Key? key}) : super(key: key);
+  const ProjectResources({super.key});
 
   @override
   _ProjectResourcesState createState() => _ProjectResourcesState();

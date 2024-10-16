@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../shared/strings.dart';
 
 class AdvisorGuidelines extends StatefulWidget {
-  const AdvisorGuidelines({Key? key}) : super(key: key);
+  const AdvisorGuidelines({super.key});
 
   @override
   _AdvisorGuidleinesState createState() => _AdvisorGuidleinesState();

@@ -7,12 +7,12 @@ class ExpandableTextButton extends StatefulWidget {
   final Color? containerColor; // Optional color for the expanded container
 
   const ExpandableTextButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     required this.expandedText,
     this.buttonTextColor, // Optional parameter for button text color
     this.containerColor, // Optional parameter for container background color
-  }) : super(key: key);
+  });
 
   @override
   _ExpandableTextButtonState createState() => _ExpandableTextButtonState();
@@ -42,7 +42,7 @@ class _ExpandableTextButtonState extends State<ExpandableTextButton> {
           },
           child: Text(
             widget.buttonText,
-            style: TextStyle(
+            style: const TextStyle(
               color:
                   Colors.white, // Use passed color or default to primary color
             ),
@@ -59,7 +59,7 @@ class _ExpandableTextButtonState extends State<ExpandableTextButton> {
             ),
             child: Text(
               widget.expandedText,
-              style: TextStyle(fontSize: 16, color: Colors.black87),
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
             ),
           ),
       ],

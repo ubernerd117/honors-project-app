@@ -5,12 +5,12 @@ import '../shared/base_screen.dart';
 import '../shared/strings.dart';
 
 class PastProjects extends StatelessWidget {
-  const PastProjects({Key? key}) : super(key: key);
+  const PastProjects({super.key});
 
   Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://scholarworks.bgsu.edu/honorsprojects/');
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+    final Uri url = Uri.parse('https://scholarworks.bgsu.edu/honorsprojects/');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 
@@ -55,7 +55,7 @@ class PastProjects extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 10.0,

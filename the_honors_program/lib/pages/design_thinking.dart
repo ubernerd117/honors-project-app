@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../shared/strings.dart';
 
 class DesignThinking extends StatefulWidget {
-  const DesignThinking({Key? key}) : super(key: key);
+  const DesignThinking({super.key});
 
   @override
   _DesignThinkingState createState() => _DesignThinkingState();

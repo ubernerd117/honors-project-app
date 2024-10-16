@@ -4,7 +4,7 @@ import '../shared/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ScholarshipResources extends StatefulWidget {
-  const ScholarshipResources({Key? key}) : super(key: key);
+  const ScholarshipResources({super.key});
 
   @override
   _ScholarshipResourcesState createState() => _ScholarshipResourcesState();
@@ -66,7 +66,7 @@ class _ScholarshipResourcesState extends State<ScholarshipResources> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 10.0,
