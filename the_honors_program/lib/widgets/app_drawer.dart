@@ -34,10 +34,10 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.timeline),
-                  title: const Text('My Timeline'),
+                  leading: const Icon(Icons.home),
+                  title: const Text('Timeline'),
                   onTap: () {
-                    // Navigate to Profile Page
+                    Navigator.pushReplacementNamed(context, '/todo_page');
                   },
                 ),
                 ListTile(

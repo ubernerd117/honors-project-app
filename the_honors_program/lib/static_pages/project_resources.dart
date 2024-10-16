@@ -1,7 +1,5 @@
-import '../widgets/expandable_text_button.dart';
 import '../shared/base_screen.dart';
 import 'package:flutter/material.dart';
-import '../shared/strings.dart';
 
 class ProjectResources extends StatefulWidget {
   const ProjectResources({super.key});

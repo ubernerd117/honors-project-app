@@ -22,15 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hello Freddie!',
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                    ),
-                  ],
-                ),
                 Stack(
                   alignment: Alignment.center,
                   children: [
