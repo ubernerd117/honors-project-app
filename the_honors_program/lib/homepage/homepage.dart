@@ -16,34 +16,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return BaseScreen(
       bodyContent: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.deepOrange,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 60,
-                      height: 60,
-                      child: CircularProgressIndicator(
-                        value: 0.63,
-                        strokeWidth: 8,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    ),
-                    Text(
-                      '63%',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(16),

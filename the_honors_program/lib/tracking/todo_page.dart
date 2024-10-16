@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:the_honors_program/tracking/database_helper.dart';
 import 'todo_model.dart';
 
@@ -13,7 +14,9 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   List<MajorStep> _majorSteps = [];
-  final TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -43,14 +46,20 @@ class _TodoPageState extends State<TodoPage> {
     await db.insertTodo(Todo(
         majorStepId: earlyPlanningId,
         name: "Fulfill Honors Requirements",
+        description:
+            "Complete other Honors requirements, including 20 Honors credits.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: earlyPlanningId,
         name: "Project Discussion",
+        description:
+            "Discuss interests for the project with your Honors advisor.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: earlyPlanningId,
         name: "Initial Project Planning",
+        description:
+            "Draft a general timeline, outline, and ideas for your project.",
         completed: false));
 
     // Project Preparation
@@ -59,14 +68,19 @@ class _TodoPageState extends State<TodoPage> {
     await db.insertTodo(Todo(
         majorStepId: projectPrepId,
         name: "Identify Faculty Advisor",
+        description:
+            "Identify one faculty advisor to help supervise your project.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectPrepId,
         name: "Meet with Honors Advisor",
+        description:
+            "Schedule and attend a meeting with your Honors advisor to discuss your project plans.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectPrepId,
         name: "Turn in Approval Checksheet",
+        description: "Submit the Checksheet for Honors Project Approval.",
         completed: false));
 
     // Project Development
@@ -75,30 +89,42 @@ class _TodoPageState extends State<TodoPage> {
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Take HNRS 4980 Course",
+        description:
+            "Enroll in and complete the HNRS 4980: Honors Project Development course.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Set Project Goals",
+        description:
+            "Meet with your faculty advisor and establish clear goals for your project.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Submit 4980 Form 1",
+        description:
+            "Complete and submit the first form required for HNRS 4980.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Project Timeline & Bibliography",
+        description:
+            "Create a detailed project timeline and compile an annotated bibliography.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Submit Project Proposal",
+        description: "Develop and submit a comprehensive project proposal.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Identify Second Faculty Advisor",
+        description: "Select a second faculty advisor for your project.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectDevId,
         name: "Submit 4980 Form 2",
+        description:
+            "Complete and submit the second form required for HNRS 4980.",
         completed: false));
 
     // Project Execution and Completion
@@ -108,46 +134,71 @@ class _TodoPageState extends State<TodoPage> {
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Take HNRS 4990 Course",
+        description:
+            "Enroll in and complete the HNRS 4990: Honors Project course.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Submit 4990 Form 1",
+        description:
+            "Complete and submit the first form required for HNRS 4990.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Complete the Project",
+        description:
+            "Execute and finalize your Honors Project, ensuring it meets all requirements.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Presentation and Defense",
+        description:
+            "Schedule and complete the oral presentation and defense of your project.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Final Draft Submission",
+        description: "Submit the final draft of your project to ScholarWorks.",
         completed: false));
     await db.insertTodo(Todo(
         majorStepId: projectExecId,
         name: "Submit 4990 Form 2",
+        description:
+            "Complete and submit the second form required for HNRS 4990.",
         completed: false));
   }
 
   Future<void> _loadMajorSteps() async {
-    final steps = await DatabaseHelper.instance.getMajorSteps();
-    final loadedSteps = await Future.wait(steps.map((step) async {
-      final tasks =
-          await DatabaseHelper.instance.getTodosForMajorStep(step.id!);
-      return MajorStep(id: step.id, name: step.name, tasks: tasks);
-    }));
-    setState(() {
-      _majorSteps = loadedSteps;
-    });
+    try {
+      final steps = await DatabaseHelper.instance.getMajorSteps();
+      final loadedSteps = await Future.wait(steps.map((step) async {
+        final tasks =
+            await DatabaseHelper.instance.getTodosForMajorStep(step.id!);
+        return MajorStep(id: step.id, name: step.name, tasks: tasks);
+      }));
+      setState(() {
+        _majorSteps = loadedSteps;
+      });
+    } catch (e) {
+      print('Error loading major steps: $e');
+      
+    }
   }
 
-  void _addTodoItem(String name, int majorStepId) async {
-    final todo = Todo(majorStepId: majorStepId, name: name, completed: false);
+  void _addTodoItem(String name, String description, DateTime? deadline,
+      int majorStepId) async {
+    final todo = Todo(
+      majorStepId: majorStepId,
+      name: name,
+      description: description,
+      deadline: deadline,
+      completed: false,
+    );
     await DatabaseHelper.instance.insertTodo(todo);
     _loadMajorSteps();
-    _textFieldController.clear();
+    _nameController.clear();
+    _descriptionController.clear();
+    _selectedDate = null;
   }
 
   void _handleTodoChange(Todo todo) async {
@@ -252,42 +303,73 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   Future<void> _displayDialog(int majorStepId) async {
+    _selectedDate = null;
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Add a task'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'Type your task'),
-            autofocus: true,
-          ),
-          actions: <Widget>[
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Add a task'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(hintText: 'Task name'),
+                      autofocus: true,
+                    ),
+                    TextField(
+                      controller: _descriptionController,
+                      decoration:
+                          const InputDecoration(hintText: 'Description'),
+                      maxLines: 3,
+                    ),
+                    ListTile(
+                      title: Text(_selectedDate == null
+                          ? 'No date selected'
+                          : 'Deadline: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}'),
+                      trailing: Icon(Icons.calendar_today),
+                      onTap: () async {
+                        final DateTime? picked = await showDatePicker(
+                          context: context,
+                          initialDate: _selectedDate ?? DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2101),
+                        );
+                        if (picked != null && picked != _selectedDate) {
+                          setState(() {
+                            _selectedDate = picked;
+                          });
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _addTodoItem(_textFieldController.text, majorStepId);
-              },
-              child: const Text('Add'),
-            ),
-          ],
+                TextButton(
+                  child: const Text('Add'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    _addTodoItem(
+                        _nameController.text,
+                        _descriptionController.text,
+                        _selectedDate,
+                        majorStepId);
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -316,34 +398,36 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        onTodoChanged(todo);
-      },
+    return ExpansionTile(
       leading: Checkbox(
-        checkColor: Colors.greenAccent,
-        activeColor: Colors.red,
         value: todo.completed,
-        onChanged: (value) {
+        onChanged: (bool? value) {
           onTodoChanged(todo);
         },
       ),
-      title: Row(children: <Widget>[
-        Expanded(
-          child: Text(todo.name, style: _getTextStyle(todo.completed)),
-        ),
-        IconButton(
-          iconSize: 30,
-          icon: const Icon(
-            Icons.delete,
-            color: Colors.red,
+      title: Text(todo.name, style: _getTextStyle(todo.completed)),
+      subtitle: todo.deadline != null
+          ? Text('Deadline: ${DateFormat('yyyy-MM-dd').format(todo.deadline!)}')
+          : null,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Description: ${todo.description}'),
+              SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => removeTodo(todo),
+                ),
+              ),
+            ],
           ),
-          alignment: Alignment.centerRight,
-          onPressed: () {
-            removeTodo(todo);
-          },
         ),
-      ]),
+      ],
     );
   }
 }

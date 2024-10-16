@@ -17,7 +17,12 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 1, // Increment this when you add a new migration
+      onCreate: _createDB,
+      onUpgrade: _onUpgrade,
+    );
   }
 
   Future<void> _createDB(Database db, int version) async {
@@ -32,6 +37,8 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         majorStepId INTEGER NOT NULL,
         name TEXT NOT NULL,
+        description TEXT,
+        deadline TEXT,
         completed INTEGER NOT NULL,
         FOREIGN KEY (majorStepId) REFERENCES major_steps(id)
       )
@@ -56,6 +63,7 @@ class DatabaseHelper {
     });
   }
 
+  // Update the getTodosForMajorStep method
   Future<List<Todo>> getTodosForMajorStep(int majorStepId) async {
     final db = await instance.database;
     final List<Map<String, dynamic>> maps = await db.query(
@@ -85,5 +93,32 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    print('Upgrading database from version $oldVersion to $newVersion');
+
+    if (oldVersion < 2) {
+      // Example: Adding a new column to the todos table
+      await db
+          .execute('ALTER TABLE todos ADD COLUMN priority INTEGER DEFAULT 0');
+    }
+
+    if (oldVersion < 3) {
+      // Example: Creating a new table for categories
+      await db.execute('''
+        CREATE TABLE categories(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL
+        )
+      ''');
+    }
+
+    // Add more conditions here for future versions
+    // if (oldVersion < 4) { ... }
+    // if (oldVersion < 5) { ... }
+
+    // After all migrations are done, update the user_version
+    await db.setVersion(newVersion);
   }
 }

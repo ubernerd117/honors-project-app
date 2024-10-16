@@ -31,19 +31,26 @@ class Todo {
   final int? id;
   final int majorStepId;
   final String name;
+  final String description;
+  final DateTime? deadline;
   bool completed;
 
-  Todo(
-      {this.id,
-      required this.majorStepId,
-      required this.name,
-      required this.completed});
+  Todo({
+    this.id,
+    required this.majorStepId,
+    required this.name,
+    required this.description,
+    this.deadline,
+    required this.completed,
+  });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'majorStepId': majorStepId,
       'name': name,
+      'description': description,
+      'deadline': deadline?.toIso8601String(),
       'completed': completed ? 1 : 0,
     };
   }
@@ -51,8 +58,11 @@ class Todo {
   factory Todo.fromMap(Map<String, dynamic> map) {
     return Todo(
       id: map['id'],
-      majorStepId: map['majorStepId'],
-      name: map['name'],
+      majorStepId: map['majorStepId'] ?? 0,
+      name: map['name'] ?? '',
+      description: map['description'] ?? '',
+      deadline:
+          map['deadline'] != null ? DateTime.parse(map['deadline']) : null,
       completed: map['completed'] == 1,
     );
   }
